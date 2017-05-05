@@ -29,6 +29,11 @@ CFLAGS_append_libc-musl = " -I${STAGING_INCDIR}/tirpc "
 LDFLAGS_append_libc-musl = " -ltirpc "
 EXTRA_OECONF_append_libc-musl = " --disable-nfs "
 
+DEPENDS_append_libc-uclibc = " libtirpc "
+CFLAGS_append_libc-uclibc = " -I${STAGING_INCDIR}/tirpc "
+LDFLAGS_append_libc-uclibc = " -ltirpc "
+EXTRA_OECONF_append_libc-uclibc = " --disable-nfs "
+
 INITSCRIPT_PACKAGES = "${PN} ${PN}-keepalive"
 
 INITSCRIPT_NAME_${PN} = "watchdog.sh"
