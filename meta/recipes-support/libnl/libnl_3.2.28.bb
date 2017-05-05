@@ -15,6 +15,7 @@ SRC_URI = "https://github.com/thom311/${BPN}/releases/download/${BPN}${@d.getVar
            file://0001-lib-add-utility-function-nl_strerror_l.patch \
            file://0002-lib-switch-to-using-strerror_l-instead-of-strerror_r.patch \
            file://0003-src-switch-to-using-strerror_l-instead-of-strerror_r.patch \
+           file://0004-lib-escape-usage-of-strerror_l-if-it-doesn-t-exist-i.patch \
 "
 UPSTREAM_CHECK_URI = "https://github.com/thom311/${BPN}/releases"
 
