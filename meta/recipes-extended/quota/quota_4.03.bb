@@ -18,6 +18,7 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/project/linuxquota/quota-tools/${PV}/quota-${PV
            file://0004-Fix-warnings-due-to-missing-stdlib.h.patch \
           "
 SRC_URI_append_libc-musl = " file://replace_getrpcbynumber_r.patch"
+SRC_URI_append_libc-uclibc = " file://replace_getrpcbynumber_r.patch"
 
 SRC_URI[md5sum] = "6b09f9c93515c25a528be5754cdfb6f5"
 SRC_URI[sha256sum] = "9c6c4d9ae7bf30506dd2aa3d8056c4ff2f8d087930d7c721616f5c093bdc674b"
@@ -35,6 +36,7 @@ ASNEEDED = ""
 
 PACKAGECONFIG ??= "tcp-wrappers rpc bsd"
 PACKAGECONFIG_libc-musl = "tcp-wrappers rpc"
+PACKAGECONFIG_libc-uclibc = "tcp-wrappers rpc"
 
 PACKAGECONFIG[tcp-wrappers] = "--enable-libwrap,--disable-libwrap,tcp-wrappers"
 PACKAGECONFIG[rpc] = "--enable-rpc,--disable-rpc,libtirpc"
