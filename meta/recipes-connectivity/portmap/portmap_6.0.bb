@@ -1,6 +1,7 @@
 require portmap.inc
 
 DEPENDS_append_libc-musl = " libtirpc "
+DEPENDS_append_libc-uclibc = " libtirpc "
 
 PR = "r9"
 
@@ -23,6 +24,8 @@ CFLAGS += "-Wall -Wstrict-prototypes -fPIC"
 EXTRA_OEMAKE += "'NO_TCP_WRAPPER=${@bb.utils.contains('PACKAGECONFIG', 'tcp-wrappers', '', '1', d)}'"
 CFLAGS_append_libc-musl = " -I${STAGING_INCDIR}/tirpc "
 LDFLAGS_append_libc-musl = " -ltirpc "
+CFLAGS_append_libc-uclibc = " -I${STAGING_INCDIR}/tirpc "
+LDFLAGS_append_libc-uclibc = " -ltirpc "
 
 do_install() {
     install -d ${D}${mandir}/man8/ ${D}${base_sbindir} ${D}${sysconfdir}/init.d
