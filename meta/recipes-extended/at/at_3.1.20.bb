@@ -25,6 +25,7 @@ SRC_URI = "http://snapshot.debian.org/archive/debian/20160728T043443Z/pool/main/
     ${@bb.utils.contains('DISTRO_FEATURES', 'pam', '${PAM_SRC_URI}', '', d)} \
     file://makefile-fix-parallel.patch \
     file://0001-remove-glibc-assumption.patch \
+    file://0002-getloadavg.c-fix.patch \
     "
 
 PAM_SRC_URI = "file://pam.conf.patch \
