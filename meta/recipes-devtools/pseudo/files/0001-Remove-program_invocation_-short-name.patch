@@ -1,0 +1,88 @@
+From d06998ca4ac1d6a49ff1783b2481f3c207adc19f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Myl=C3=A8ne=20Josserand?=
+ <mylene.josserand@free-electrons.com>
+Date: Fri, 19 May 2017 14:07:59 +0200
+Subject: [PATCH] Remove program_invocation_(short)name
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Remove the variable program_invocation_name and
+program_invocation_short_name in case of a Linux use because it
+already exists in uClibc C library.
+
+Signed-off-by: Mylène Josserand <mylene.josserand@free-electrons.com>
+---
+ pseudo_client.c   | 6 +++---
+ pseudo_util.c     | 8 ++------
+ pseudo_wrappers.c | 2 ++
+ 3 files changed, 7 insertions(+), 9 deletions(-)
+
+diff --git a/pseudo_client.c b/pseudo_client.c
+index cac64d3..f78aacc 100644
+--- a/pseudo_client.c
++++ b/pseudo_client.c
+@@ -47,9 +47,7 @@
+ #include "pseudo_client.h"
+ 
+ /* GNU extension */
+-#if PSEUDO_PORT_LINUX
+-extern char *program_invocation_name;
+-#else
++#ifndef PSEUDO_PORT_LINUX
+ static char *program_invocation_name = "unknown";
+ #endif
+ 
+@@ -1288,7 +1286,9 @@ pseudo_client_request(pseudo_msg_t *msg, size_t len, const char *path) {
+ 	pseudo_msg_t *response = 0;
+ 	int tries = 0;
+ 	int rc;
++	#ifndef PSEUDO_PORT_LINUX
+ 	extern char *program_invocation_short_name;
++	#endif
+ 	#if 0
+ 	if (!strcmp(program_invocation_short_name, "pseudo"))
+ 		abort();
+diff --git a/pseudo_util.c b/pseudo_util.c
+index a60c74b..cb9b1b7 100644
+--- a/pseudo_util.c
++++ b/pseudo_util.c
+@@ -602,9 +602,7 @@ pseudo_evlog_internal(char *fmt, ...) {
+ /* store pid in text form for prepending to messages */
+ void
+ pseudo_new_pid() {
+-#if PSEUDO_PORT_LINUX
+-	extern char *program_invocation_short_name; /* glibcism */
+-#else
++#ifndef PSEUDO_PORT_LINUX
+ 	char *program_invocation_short_name = "unknown";
+ #endif
+ 	int pid = getpid();
+@@ -1465,9 +1463,7 @@ static int
+ pseudo_logfile(char *filename, char *defname, int prefer_fd) {
+ 	char *pseudo_path;
+ 	char *s;
+-#if PSEUDO_PORT_LINUX
+-	extern char *program_invocation_short_name; /* glibcism */
+-#else
++#ifndef PSEUDO_PORT_LINUX
+ 	char *program_invocation_short_name = "unknown";
+ #endif
+ 	int fd;
+diff --git a/pseudo_wrappers.c b/pseudo_wrappers.c
+index 615ac9a..5534a68 100644
+--- a/pseudo_wrappers.c
++++ b/pseudo_wrappers.c
+@@ -65,7 +65,9 @@ static void pseudo_droplock(void);
+ static size_t pseudo_dechroot(char *, size_t);
+ static void pseudo_sigblock(sigset_t *);
+ 
++#ifndef PSEUDO_PORT_LINUX
+ extern char *program_invocation_short_name;
++#endif
+ static sigset_t pseudo_saved_sigmask;
+ 
+ /* Constructor only exists in libpseudo */
+-- 
+2.7.4
+

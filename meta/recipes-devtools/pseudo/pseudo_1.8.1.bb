@@ -11,6 +11,7 @@ SRC_URI = "http://downloads.yoctoproject.org/releases/pseudo/${BPN}-${PV}.tar.bz
            file://0002-Use-correct-file-descriptor.patch \
            file://0003-Fix-renameat-parallel-to-previous-fix-to-rename.patch \
            file://More-correctly-fix-xattrs.patch \
+           file://0001-Remove-program_invocation_-short-name.patch \
            "
 
 SRC_URI[md5sum] = "ee38e4fb62ff88ad067b1a5a3825bac7"
