@@ -8,6 +8,7 @@ LIC_FILES_CHKSUM = "file://COPYRIGHT;md5=8ad8615198542444f84d28a6cf226dd8"
 
 DEPENDS = ""
 DEPENDS_append_libc-musl = " libtirpc "
+DEPENDS_append_libc-uclibc = " libtirpc "
 PR = "r2"
 
 # Blacklist a bogus tag in upstream check
@@ -43,6 +44,8 @@ PACKAGECONFIG[tcp-wrappers] = "--with-libwrap,,tcp-wrappers"
 
 CFLAGS_append_libc-musl = " -I${STAGING_INCDIR}/tirpc "
 LDFLAGS_append_libc-musl = " -ltirpc "
+CFLAGS_append_libc-uclibc = " -I${STAGING_INCDIR}/tirpc "
+LDFLAGS_append_libc-uclibc = " -ltirpc "
 
 do_configure() {
 	# Looks like configure.in is broken, so we are skipping
