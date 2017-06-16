@@ -61,6 +61,7 @@ SRC_URI[md5sum] = "ba154d5796928b841c9c69f0ae376660"
 SRC_URI[sha256sum] = "ccdcb8c3f4e0080923d7e818f0e4a202db26c46415eaef361387c20995b8959f"
 
 CFLAGS += "-DSYSV"
+CFLAGS_libc-uclibc += "-DNONLS"
 
 do_configure () {
         ${S}/configure -default -confdir /etc +sgid +fhs +lang all
