@@ -1,0 +1,63 @@
+From 7b5fa4db119d157316767e16ba8d452d19e09608 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Myl=C3=A8ne=20Josserand?=
+ <mylene.josserand@free-electrons.com>
+Date: Wed, 21 Jun 2017 15:17:30 +0200
+Subject: [PATCH] syscfg: Add an arc architecture
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+* src/syscfg/lock-obj-pub.arc-unknown-linux-gnu.h: New.
+* src/Makefile.am (lock_obj_pub): Add it.
+
+Signed-off-by: Mylène Josserand <mylene.josserand@free-electrons.com>
+---
+ src/Makefile.am                                 |  1 +
+ src/syscfg/lock-obj-pub.arc-unknown-linux-gnu.h | 23 +++++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
+ create mode 100644 src/syscfg/lock-obj-pub.arc-unknown-linux-gnu.h
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 1ce8892..6e576b9 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -44,6 +44,7 @@ lock_obj_pub = \
+         syscfg/lock-obj-pub.aarch64-unknown-linux-gnu.h     \
+ 	syscfg/lock-obj-pub.aarch64-apple-darwin.h          \
+         syscfg/lock-obj-pub.alpha-unknown-linux-gnu.h       \
++        syscfg/lock-obj-pub.arc-unknown-linux-gnu.h         \
+         syscfg/lock-obj-pub.arm-unknown-linux-androideabi.h \
+         syscfg/lock-obj-pub.arm-unknown-linux-gnueabi.h     \
+         syscfg/lock-obj-pub.arm-unknown-linux-gnueabihf.h   \
+diff --git a/src/syscfg/lock-obj-pub.arc-unknown-linux-gnu.h b/src/syscfg/lock-obj-pub.arc-unknown-linux-gnu.h
+new file mode 100644
+index 0000000..3b1a8fa
+--- /dev/null
++++ b/src/syscfg/lock-obj-pub.arc-unknown-linux-gnu.h
+@@ -0,0 +1,23 @@
++## lock-obj-pub.arc-oe-linux-uclibc.h
++## File created by gen-posix-lock-obj - DO NOT EDIT
++## To be included by mkheader into gpg-error.h
++
++typedef struct
++{
++  long _vers;
++  union {
++    volatile char _priv[24];
++    long _x_align;
++    long *_xp_align;
++  } u;
++} gpgrt_lock_t;
++
++#define GPGRT_LOCK_INITIALIZER {1,{{0,0,0,0,0,0,0,0, \
++                                    0,0,0,0,0,0,0,0, \
++                                    0,0,0,0,0,0,0,0}}}
++##
++## Local Variables:
++## mode: c
++## buffer-read-only: t
++## End:
++##
+-- 
+2.11.0
+

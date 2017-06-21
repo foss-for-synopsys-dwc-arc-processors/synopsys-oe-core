@@ -14,7 +14,8 @@ SECTION = "libs"
 UPSTREAM_CHECK_URI = "https://gnupg.org/download/index.html"
 SRC_URI = "${GNUPG_MIRROR}/libgpg-error/libgpg-error-${PV}.tar.bz2 \
            file://pkgconfig.patch \
-	  "
+           file://0001-syscfg-Add-an-arc-architecture.patch \
+           "
 SRC_URI[md5sum] = "feb42198c0aaf3b28eabe8f41a34b983"
 SRC_URI[sha256sum] = "9268e1cc487de5e6e4460fca612a06e4f383072ac43ae90603e5e46783d3e540"
 
