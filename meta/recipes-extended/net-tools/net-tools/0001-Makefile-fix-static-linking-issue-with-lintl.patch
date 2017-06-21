@@ -1,0 +1,82 @@
+From 22d2599684589a8d2216ec9dce95821649937a49 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Myl=C3=A8ne=20Josserand?=
+ <mylene.josserand@free-electrons.com>
+Date: Wed, 21 Jun 2017 08:24:55 +0200
+Subject: [PATCH] Makefile: fix static linking issue with lintl
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+When net-tools are build with uClibc-ng and statically linked,
+some tools like hostname and route needs to link with -lintl.
+
+Adding -lintl in LDFLAGS place the library before object files:
+arm-linux-gcc -O2 -g -Wall -fno-strict-aliasing   -static -lintl -Llib -o hostname hostname.o
+
+Add $(LIBS) after object files in the Makefile to place -lintl correctly.
+
+Patch taken from Buildroot:
+http://lists.busybox.net/pipermail/buildroot/2016-May/162216.html
+
+Signed-off-by: Mylène Josserand <mylene.josserand@free-electrons.com>
+---
+ Makefile | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 8fcc55c..3b78838 100644
+--- a/Makefile
++++ b/Makefile
+@@ -185,37 +185,37 @@ subdirs:
+ 		@for i in $(SUBDIRS); do $(MAKE) -C $$i $(MDEFINES) ; done
+ 
+ ifconfig:	$(NET_LIB) ifconfig.o
+-		$(CC) $(LDFLAGS) -o ifconfig ifconfig.o $(NLIB) $(RESLIB)
+-		
++		$(CC) $(LDFLAGS) -o ifconfig ifconfig.o $(LIBS) $(NLIB) $(RESLIB)
++
+ nameif:	nameif.o
+-		$(CC) $(LDFLAGS) -o nameif nameif.o 
++		$(CC) $(LDFLAGS) -o nameif nameif.o
+ 
+ hostname:	hostname.o
+-		$(CC) $(LDFLAGS) -o hostname hostname.o $(DNLIB)
++		$(CC) $(LDFLAGS) -o hostname hostname.o $(LIBS) $(DNLIB)
+ 
+ route:		$(NET_LIB) route.o
+-		$(CC) $(LDFLAGS) -o route route.o $(NLIB) $(RESLIB)
++		$(CC) $(LDFLAGS) -o route route.o $(LIBS) $(NLIB) $(RESLIB)
+ 
+ arp:		$(NET_LIB) arp.o
+-		$(CC) $(LDFLAGS) -o arp arp.o $(NLIB) $(RESLIB)
++		$(CC) $(LDFLAGS) -o arp arp.o $(LIBS) $(NLIB) $(RESLIB)
+ 
+ rarp:		$(NET_LIB) rarp.o
+-		$(CC) $(LDFLAGS) -o rarp rarp.o $(NLIB)
++		$(CC) $(LDFLAGS) -o rarp rarp.o $(LIBS) $(NLIB)
+ 
+ slattach:	$(NET_LIB) slattach.o
+-		$(CC) $(LDFLAGS) -o slattach slattach.o $(NLIB)
++		$(CC) $(LDFLAGS) -o slattach slattach.o $(LIBS) $(NLIB)
+ 
+ plipconfig:	$(NET_LIB) plipconfig.o
+-		$(CC) $(LDFLAGS) -o plipconfig plipconfig.o $(NLIB)
++		$(CC) $(LDFLAGS) -o plipconfig plipconfig.o $(LIBS) $(NLIB)
+ 
+ netstat:	$(NET_LIB) netstat.o statistics.o
+-		$(CC) $(LDFLAGS) -o netstat netstat.o statistics.o $(NLIB) $(RESLIB)
++		$(CC) $(LDFLAGS) -o netstat netstat.o statistics.o $(LIBS) $(NLIB) $(RESLIB)
+ 
+ iptunnel:	$(NET_LIB) iptunnel.o
+-		$(CC) $(LDFLAGS) -o iptunnel iptunnel.o $(NLIB) $(RESLIB)
++		$(CC) $(LDFLAGS) -o iptunnel iptunnel.o $(LIBS) $(NLIB) $(RESLIB)
+ 
+ ipmaddr:	$(NET_LIB) ipmaddr.o
+-		$(CC) $(LDFLAGS) -o ipmaddr ipmaddr.o $(NLIB) $(RESLIB)
++		$(CC) $(LDFLAGS) -o ipmaddr ipmaddr.o $(LIBS) $(NLIB) $(RESLIB)
+ 
+ mii-tool:	mii-tool.o
+ 		$(CC) $(LDFLAGS) -o mii-tool mii-tool.o
+-- 
+2.11.0
+

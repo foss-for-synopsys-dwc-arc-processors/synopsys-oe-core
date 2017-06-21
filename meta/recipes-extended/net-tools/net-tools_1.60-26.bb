@@ -17,6 +17,7 @@ SRC_URI = "http://snapshot.debian.org/archive/debian/20050312T000000Z/pool/main/
            file://net-tools-1.60-sctp3-addrs.patch \
            file://0001-lib-inet6.c-INET6_rresolve-various-fixes.patch \
            file://net-tools-fix-building-with-linux-4.8.patch \
+	   file://0001-Makefile-fix-static-linking-issue-with-lintl.patch \
           "
 
 # for this package we're mostly interested in tracking debian patches,
@@ -39,7 +40,7 @@ inherit gettext
 
 do_patch[depends] = "quilt-native:do_populate_sysroot"
 
-LDFLAGS_append_libc-uclibc = " -lintl "
+EXTRA_OEMAKE_libc-uclibc += "LIBS=-lintl"
 
 # The Makefile is lame, no parallel build
 PARALLEL_MAKE = ""
