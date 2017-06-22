@@ -18,6 +18,7 @@ SRC_URI = "${GNOME_MIRROR}/${BPN}/${MAJ_VER}/${BPN}-${PV}.tar.xz \
            file://run-ptest \
            file://fatal-loader.patch \
            "
+SRC_URI_append_libc-uclibc = " file://0001-Makefile.am-Remove-tests-build.patch"
 
 SRC_URI[md5sum] = "63cb19f92cf7709ccf44bbb6fe1ff70c"
 SRC_URI[sha256sum] = "d55e5b383ee219bd0e23bf6ed4427d56a7db5379729a6e3e0a0e0eba9a8d8879"

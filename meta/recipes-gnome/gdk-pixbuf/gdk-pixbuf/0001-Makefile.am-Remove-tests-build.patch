@@ -1,0 +1,29 @@
+From af638550e562cc531620a8e990976292a41cbbfb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Myl=C3=A8ne=20Josserand?=
+ <mylene.josserand@free-electrons.com>
+Date: Thu, 22 Jun 2017 14:32:51 +0200
+Subject: [PATCH] Makefile.am: Remove tests build
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Tests do not build correctly with uClibc.
+
+Signed-off-by: Mylène Josserand <mylene.josserand@free-electrons.com>
+---
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index ed4a5c2..4a3c843 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,4 +1,4 @@
+-SUBDIRS = gdk-pixbuf po docs tests contrib build
++SUBDIRS = gdk-pixbuf po docs contrib build
+ 
+ EXTRA_DIST = 			\
+ 	config.h.win32 		\
+-- 
+2.11.0
+
