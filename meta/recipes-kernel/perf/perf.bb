@@ -86,6 +86,8 @@ EXTRA_OEMAKE = '\
     ${SCRIPTING_DEFINES} ${LIBNUMA_DEFINES} \
 '
 
+EXTRA_OEMAKE_remove_libc-uclibc = 'EXTRA_CFLAGS="-ldw"'
+
 EXTRA_OEMAKE += "\
     'DESTDIR=${D}' \
     'prefix=${prefix}' \
