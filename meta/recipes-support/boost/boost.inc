@@ -174,6 +174,8 @@ BJAM_OPTS    = '${BOOST_PARALLEL_MAKE} -d+2 -q \
 		--disable-icu \
 		${BJAM_EXTRA}'
 
+# Posix support needs monetary header that it is not provided by uClibc
+BJAM_OPTS_append_libc-uclibc = ' boost.locale.posix=off'
 # Native compilation of bzip2 isn't working
 BJAM_OPTS_append_class-native = ' -sNO_BZIP2=1'
 
