@@ -14,6 +14,7 @@ SECTION = "libs"
 UPSTREAM_CHECK_URI = "https://gnupg.org/download/index.html"
 SRC_URI = "${GNUPG_MIRROR}/libgpg-error/libgpg-error-${PV}.tar.bz2 \
            file://pkgconfig.patch \
+           file://0001-syscfg-Support-ARC-CPUs-and-simplify-aliasing-table.patch \
 	  "
 SRC_URI[md5sum] = "ef3d928a5a453fa701ecc3bb22be1c64"
 SRC_URI[sha256sum] = "c345c5e73cc2332f8d50db84a2280abfb1d8f6d4f1858b9daa30404db44540ca"
@@ -36,6 +37,7 @@ do_compile_prepend() {
 
 	case ${TARGET_ARCH} in
 	  aarch64_be) TUPLE=aarch64-unknown-linux-gnu ;;
+	  arc)	      TUPLE=i686-unknown-linux-gnu ;;
 	  arm)	      TUPLE=arm-unknown-linux-gnueabi ;;
 	  armeb)      TUPLE=arm-unknown-linux-gnueabi ;;
 	  i586|i686)  TUPLE=i686-pc-linux-gnu ;;
