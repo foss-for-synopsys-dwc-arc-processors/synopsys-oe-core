@@ -43,6 +43,7 @@ SRC_URI = "\
      file://0021-PLT-information-was-still-being-generated-when-symbo.patch \
      file://CVE-2018-17358.patch \
      file://CVE-2018-17360.patch \
+     file://0022-ARC-Fixed-issue-with-DTSOFF-relocs.patch \
 "
 S  = "${WORKDIR}/git"
 
