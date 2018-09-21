@@ -41,6 +41,7 @@ SRC_URI = "\
      file://0019-Improved-robustness.-Return-FALSE-in-case-of-NULL-po.patch \
      file://0020-Make-sure-global-symbol-is-not-an-indirect-or-warnin.patch \
      file://0021-PLT-information-was-still-being-generated-when-symbo.patch \
+     file://0022-ARC-Fixed-issue-with-DTSOFF-relocs.patch \
 "
 S  = "${WORKDIR}/git"
 
