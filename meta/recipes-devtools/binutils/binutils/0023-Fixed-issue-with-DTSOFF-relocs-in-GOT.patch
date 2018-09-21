@@ -1,0 +1,53 @@
+From 0ceb7802be0c69f3f2d9fa7bbf4b5a12c22dcf7b Mon Sep 17 00:00:00 2001
+From: Cupertino Miranda <cmiranda@synopsys.com>
+Date: Thu, 6 Sep 2018 00:50:35 +0100
+Subject: [PATCH 2/2] Fixed issue with DTSOFF relocs in GOT.
+
+Inserted offset in final sectionm in the GOT entry of type DTSOFF soon to be
+relocated by the dynamic loader.
+
+Signed-off-by: Cupertino Miranda <cmiranda@synopsys.com>
+
+Upstream-Status: Pending
+---
+ bfd/arc-got.h | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/bfd/arc-got.h b/bfd/arc-got.h
+index a86061bcb38f..07eca9c54cc7 100644
+--- a/bfd/arc-got.h
++++ b/bfd/arc-got.h
+@@ -330,7 +330,11 @@ relocate_fix_got_relocs_for_got_info (struct got_entry **	   list_p,
+ 		bfd_vma sec_vma = tls_sec->output_section->vma;
+ 
+ 		bfd_put_32 (output_bfd,
+-			    sym_value - sec_vma,
++			    sym_value - sec_vma
++			    + (elf_hash_table (info)->dynamic_sections_created
++			       ? 0
++			       : (align_power(TCB_SIZE, tls_sec->alignment_power))
++			      ),
+ 			    htab->sgot->contents + entry->offset
+ 			    + (entry->existing_entries == TLS_GOT_MOD_AND_OFF
+ 			       ? 4 : 0));
+@@ -341,7 +345,7 @@ relocate_fix_got_relocs_for_got_info (struct got_entry **	   list_p,
+ 			    "GOT_TLS_IE"),
+ 			   (long) (sym_value - sec_vma),
+ 			   (long) (htab->sgot->output_section->vma
+-			      + htab->sgot->output_offset->vma
++			      + htab->sgot->output_offset
+ 			      + entry->offset
+ 			      + (entry->existing_entries == TLS_GOT_MOD_AND_OFF
+ 				 ? 4 : 0)),
+@@ -368,7 +372,7 @@ relocate_fix_got_relocs_for_got_info (struct got_entry **	   list_p,
+ 			    "GOT_TLS_IE"),
+ 			   (long) (sym_value - sec_vma),
+ 			   (long) (htab->sgot->output_section->vma
+-			      + htab->sgot->output_offset->vma
++			      + htab->sgot->output_offset
+ 			      + entry->offset
+ 			      + (entry->existing_entries == TLS_GOT_MOD_AND_OFF
+ 				 ? 4 : 0)),
+-- 
+2.17.1
+
